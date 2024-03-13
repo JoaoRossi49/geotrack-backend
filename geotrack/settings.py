@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dispositivo',
     'rest_framework',
+    'paho.mqtt',
 ]
+
+MQTT_BROKER = "localhost"
+MQTT_PORT = 1883
+MQTT_KEEP_ALIVE_INTERVAL = 60
+MQTT_TOPIC = "/coordenada"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

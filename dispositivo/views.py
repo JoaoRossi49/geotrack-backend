@@ -9,6 +9,7 @@ class DispositivoList(generics.ListCreateAPIView):
     queryset = Dispositivo.objects.all()
     serializer_class = DispositivoSerializer
     
-class DispositivoById(generics.ListAPIView):
+class DispositivoById(generics.RetrieveAPIView):
     queryset = Dispositivo.objects.all()
-    serializer_class = DispositivoByIdSerializer    
+    serializer_class = DispositivoSerializer    
+

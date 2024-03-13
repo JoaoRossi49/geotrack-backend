@@ -4,5 +4,6 @@ from . import views
 from django.conf import settings
 
 urlpatterns = [
-    path('dispositivo/', views.DispositivoList.as_view()),
+    path('dispositivos/', views.DispositivoList.as_view(), name='dispositivo-list'),
+    path('dispositivos/<int:pk>/', views.DispositivoById.as_view(), name='dispositivo-detail'),
 ]
