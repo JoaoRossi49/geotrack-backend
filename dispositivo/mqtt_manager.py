@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import threading
 from django.conf import settings
 import json
 from .models import Dispositivo, Coordenada
@@ -7,10 +8,8 @@ DispositivoManager = Dispositivo.objects
 
 class MQTTManager:
 
-
-
     def __init__(self):
-        self.client = mqtt.Client()
+        self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.client.on_message = self.on_message
 
         self.client.connect(settings.MQTT_BROKER, settings.MQTT_PORT, settings.MQTT_KEEP_ALIVE_INTERVAL)
@@ -28,6 +27,9 @@ class MQTTManager:
             )
             coordenadas.save()
 
-
+    def start(self):
+        self.thread = threading.Thread(target=self.client.loop_forever)
+        self.thread.start()
 
 mqtt_manager = MQTTManager()
+mqtt_manager.start()

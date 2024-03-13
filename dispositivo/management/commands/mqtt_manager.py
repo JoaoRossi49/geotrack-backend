@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand
-from . import mqtt_manager
+from ... import mqtt_manager
 
-class Command(BaseCommand):
+class MQTTManager(BaseCommand):
     help = 'Starts MQTTManager'
 
     def handle(self, *args, **options):
-        mqtt_manager.mqtt_manager.start()
+        mqtt_manager.MQTTManager().start()

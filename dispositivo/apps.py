@@ -6,5 +6,6 @@ class DispositivoConfig(AppConfig):
     name = 'dispositivo'
 
     def ready(self):
-        from django.core.management import call_command
-        call_command('mqtt_manager')
+        from dispositivo.management.commands.mqtt_manager import MQTTManager
+        mqtt_manager = MQTTManager()
+        mqtt_manager.handle()
