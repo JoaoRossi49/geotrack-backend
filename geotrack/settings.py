@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'mapa',
     'rest_framework',
     'paho.mqtt',
+    'channels',
 ]
+
+ASGI_APPLICATION = 'geotrack.routing.application'
 
 MQTT_BROKER = "localhost"
 MQTT_PORT = 8080 #1883

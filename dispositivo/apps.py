@@ -10,3 +10,4 @@ class DispositivoConfig(AppConfig):
         mqtt_manager = MQTTManager()
         print('vai chamar handle')
         mqtt_manager.handle()
+        import dispositivo.signals
