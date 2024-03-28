@@ -8,4 +8,4 @@ def Mapa(request):
     context = {
         'markers': markers
     }
-    return render(request, 'mapa.html', context)
+    return render(request, 'mapa/mapa.html', context)

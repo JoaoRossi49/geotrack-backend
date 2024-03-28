@@ -26,25 +26,29 @@ SECRET_KEY = 'django-insecure-jx8e&a-om5$rvp*8*k%$v#n&%!or39g(8*w)z^)$+xw21y$u$6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'http://localhost:3000']
+ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'paho.mqtt',    
+
     'dispositivo',
     'mapa',
-    'rest_framework',
-    'paho.mqtt',
-    'channels',
 ]
 
-ASGI_APPLICATION = 'geotrack.routing.application'
+ASGI_APPLICATION = 'geotrack.asgi.application'
+
 
 MQTT_BROKER = "localhost"
 MQTT_PORT = 8080 #1883
