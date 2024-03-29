@@ -38,7 +38,10 @@
             mapSocket.onmessage = function(e){
                 let data = JSON.parse(e.data)
                 console.log('Data:', data)
+                location.reload();
             }
+
+            
 
         </script>
 </body>
