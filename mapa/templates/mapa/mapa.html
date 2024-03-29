@@ -31,7 +31,7 @@
         });
         </script>
         <script type="text/javascript">
-            let url = 'ws://127.0.0.1:8001/ws/socket-server/';
+            let url = 'ws://' + window.location.host + '/ws/socket-server/'
             
             const mapSocket = new WebSocket(url)
 

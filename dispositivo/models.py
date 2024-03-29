@@ -13,8 +13,7 @@ class Coordenada(models.Model):
     data_hora_coleta = models.DateTimeField()
     def save(self, *args, **kwargs):
         print("Chamou o save")
+        send_database_update_message(True)
         if self.data_hora_coleta:
             self.data_hora_coleta = timezone.make_aware(self.data_hora_coleta)
-        result = super().save(*args, **kwargs)
-        send_database_update_message(sender=self.__class__, instance=self)
-        return result
+        super().save(*args, **kwargs)      

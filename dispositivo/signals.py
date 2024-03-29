@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 channel_layer = get_channel_layer()
 
-def send_database_update_message(sender, instance, created, **kwargs):
+def send_database_update_message(created):
     print("Enviou mensagem de atualização")
     print(created)
     if created:
