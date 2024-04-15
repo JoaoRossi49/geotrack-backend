@@ -5,4 +5,5 @@ class MQTTManager(BaseCommand):
     help = 'Starts MQTTManager'
 
     def handle(self, *args, **options):
+        print('chamou handle')
         mqtt_manager.MQTTManager().start()

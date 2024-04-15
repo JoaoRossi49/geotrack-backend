@@ -8,4 +8,6 @@ class DispositivoConfig(AppConfig):
     def ready(self):
         from dispositivo.management.commands.mqtt_manager import MQTTManager
         mqtt_manager = MQTTManager()
+        print('vai chamar handle')
         mqtt_manager.handle()
+        import dispositivo.signals
