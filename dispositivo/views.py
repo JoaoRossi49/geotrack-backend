@@ -14,15 +14,18 @@ class DispositivoList(generics.ListCreateAPIView):
     
 class DispositivoById(generics.RetrieveAPIView):
     queryset = Dispositivo.objects.all()
-    serializer_class = DispositivoSerializer    
+    serializer_class = DispositivoSerializer   
 
 class LastCoordenada(APIView):
     def get(self, request, format=None):
-        last_coordenada = Coordenada.objects.last()
-        if last_coordenada:
-            return JsonResponse({
-                'latitude': last_coordenada.latitude,
-                'longitude': last_coordenada.longitude,
+        last_coordenadas = Coordenada.objects.order_by('-id')[:5] 
+        coordenadas_list = []
+        for coordenada in last_coordenadas:
+            coordenadas_list.append({
+                'latitude': coordenada.latitude,
+                'longitude': coordenada.longitude,
             })
+        if coordenadas_list:
+            return JsonResponse(coordenadas_list, safe=False)
         else:
             return JsonResponse({'error': 'Nenhuma coordenada encontrada'}, status=404)

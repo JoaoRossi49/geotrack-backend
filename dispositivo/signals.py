@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 channel_layer = get_channel_layer()
 
-def send_database_update_message(created):
+def send_database_update_message(created, latitude, longitude):
     print("Enviou mensagem de atualização")
     print(created)
     if created:
@@ -13,6 +13,8 @@ def send_database_update_message(created):
             'map_room',
             {
                 'type': 'send_message',
-                'message': 'Database updated'
+                'message': 'Database updated',
+                'lat': latitude,
+                'long': longitude
             }
         )
