@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Carrega as variáveis de ambiente do arquivo .env
+load_dotenv(dotenv_path="C:\git\api_dispositivo\geotrack\.env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,10 +54,10 @@ INSTALLED_APPS = [
 ASGI_APPLICATION = 'geotrack.asgi.application'
 
 
-MQTT_BROKER = "localhost"
-MQTT_PORT = 8080 #1883
-MQTT_KEEP_ALIVE_INTERVAL = 60
-MQTT_TOPIC = "/coordenada"
+MQTT_BROKER = os.getenv('MQTT_BROKER')
+MQTT_PORT = os.getenv('MQTT_PORT')
+MQTT_KEEP_ALIVE_INTERVAL = os.getenv('MQTT_KEEP_ALIVE_INTERVAL')
+MQTT_TOPIC = os.getenv('MQTT_TOPIC')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
