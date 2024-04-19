@@ -21,9 +21,9 @@ class MQTTManager:
             self.client.on_message = self.on_message
             self.client.connect(MQTT_BROKER, int(MQTT_PORT), int(MQTT_KEEP_ALIVE_INTERVAL))
             self.client.subscribe(MQTT_TOPIC, qos=0)
-            print('Conectado ao brooker')
+            print('Conectado ao brooker MQTT')
         except:
-            print("Não foi possível conectar com o brooker")
+            print("Não foi possível conectar com o brooker MQTT")
 
     def on_message(self, client, userdata, msg):
         print('Recebeu mensagem')
@@ -38,7 +38,7 @@ class MQTTManager:
             routing_key = 'coordenadas'
 
             channel.basic_publish(exchange='', routing_key=routing_key, body=body)
-            print(f'Enviado ao RabbitMQ usando a routing key: {routing_key}')
+            print(f'Enviado ao RabbitMQ na fila: {routing_key}')
             connection.close()
 
         except Exception as e:

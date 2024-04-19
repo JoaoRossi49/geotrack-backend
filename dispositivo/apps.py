@@ -6,8 +6,7 @@ class DispositivoConfig(AppConfig):
     name = 'dispositivo'
 
     def ready(self):
-        from dispositivo.management.commands.mqtt_manager import MQTTManager
-        mqtt_manager = MQTTManager()
-        print('vai chamar handle')
-        mqtt_manager.handle()
-        import dispositivo.signals
+        from dispositivo.management.commands.amqp_manager import AMQPManager
+        amqp_manager = AMQPManager()
+        print('Iniciou o receiver AMQP')
+        amqp_manager.handle()

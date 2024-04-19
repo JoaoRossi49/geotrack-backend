@@ -12,13 +12,13 @@ cd C:\git\api_dispositivo\geotrack
 
 REM Inicia receptor de coordenadas
 start python C:\git\api_dispositivo\geotrack\dispositivo\start_mqtt.py
-REM timeout /T 2 /NOBREAK
+timeout /T 2 /NOBREAK
 
 REM Ativar o ambiente virtual
-REM call venv\Scripts\activate
+call venv\Scripts\activate
 
 REM Iniciar o servidor Django
-REM python manage.py runserver --noreload
+start cmd /k python manage.py runserver --noreload
 
 REM Inicia disparos de coordenadas mock
 REM cd C:\git\pysquitto
