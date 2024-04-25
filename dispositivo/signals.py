@@ -6,8 +6,7 @@ from django.dispatch import receiver
 channel_layer = get_channel_layer()
 
 def send_database_update_message(created, latitude, longitude):
-    print("Enviou mensagem de atualização")
-    print(created)
+    print("Enviou mensagem de atualização ws")  
     if created:
         async_to_sync(channel_layer.group_send)(
             'map_room',
