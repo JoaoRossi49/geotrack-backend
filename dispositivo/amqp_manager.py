@@ -2,6 +2,7 @@ import threading
 from django.conf import settings
 from datetime import datetime
 import json, pika
+from django.core.cache import cache
 from .models import Dispositivo, Coordenada
 
 DispositivoManager = Dispositivo.objects
@@ -30,13 +31,34 @@ class AMQPManager:
                     codigo_dispositivo = payload.get('codigo_dispositivo')
                     latitude = payload.get('latitude')
                     longitude = payload.get('longitude')
-                    if DispositivoManager.filter(codigo=codigo_dispositivo).exists():
+
+                    dispositivo = cache.get(f"dispositivo_{codigo_dispositivo}")
+
+                    if not dispositivo:
+                        dispositivo = DispositivoManager.filter(codigo=codigo_dispositivo).first()
+                        cache.set(f"dispositivo_{codigo_dispositivo}", dispositivo, timeout=3600)
+
+                    if dispositivo:
                         coordenadas = Coordenada(
                             latitude=latitude,
                             longitude=longitude,
                             data_hora_coleta=datetime.now(),
                         )
                         coordenadas.save()
+
+                    cache.set(f"coordenadas_{dispositivo.id}", coordenadas, timeout=5)#3*24*60*60)
+
+                    cache_keys = cache.get_many('*')
+
+                    num_registros = len(cache_keys)
+
+                    if cache_keys is not None:
+                        # O registro está presente no cache, faça algo com os dados
+                        print("Dados encontrados no cache:", num_registros)
+                    else:
+                        # O registro não está presente no cache, faça algo
+                        print("Os dados não estão presentes no cache.")
+
                 except Exception as e:
                     print(f"Erro ao processar mensagem: {str(e)}")
 
