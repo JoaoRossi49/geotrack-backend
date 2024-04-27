@@ -1,11 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 from .signals import send_database_update_message
 
 
 class Dispositivo(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     codigo = models.CharField(max_length=200)
-    description = models.CharField(max_length=500)
+    descricao = models.CharField(max_length=500)
 
 class Coordenada(models.Model):
     latitude = models.CharField(max_length=100, blank=True)
