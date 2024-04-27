@@ -3,10 +3,14 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Dispositivo, Coordenada
-from .serializers import DispositivoSerializer, CoordenadaSerializer
+from .serializers import DispositivoSerializer, CoordenadaSerializer, UserSerializer
 from rest_framework import generics
 from rest_framework.views import APIView
+from django.contrib.auth.models import User
 
+class CreateUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class DispositivoList(generics.ListCreateAPIView):
     queryset = Dispositivo.objects.all()
