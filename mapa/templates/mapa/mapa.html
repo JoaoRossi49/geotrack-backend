@@ -13,63 +13,40 @@
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([51.505, -0.09], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-    </script>
-        <script type="text/javascript">
-            let url = 'ws://' + window.location.host + '/ws/socket-server/'
-            
-            const mapSocket = new WebSocket(url)
+        document.addEventListener('DOMContentLoaded', function() {
+            var map = L.map('map').setView([51.505, -0.09], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-            mapSocket.onmessage = function(e){
+            var markers = [];
+
+            function fetchAndDisplayCoordinates() {
                 fetch('http://' + window.location.host + '/api/coordenadas/last')
                 .then(response => {
                     if (!response.ok) {
-                    throw new Error('Erro ao buscar os dados da API');
+                        throw new Error('Erro ao buscar os dados da API');
                     }
                     return response.json();
                 })
                 .then(data => {
-
-                    map.eachLayer(layer => {
-                        if (layer instanceof L.Marker) {
-                            map.removeLayer(layer);
-                        }
+                    markers.forEach(marker => {
+                        map.removeLayer(marker);
                     });
-                    
+
                     data.forEach(function(item) {
-                        var newMarker = {
-                            lat: item.latitude,
-                            lng: item.longitude,
-                            popupText: 'teste'
-                        };
-                        markers.push(newMarker);  // Adiciona o novo marcador à lista de marcadores
-                    });
-                    
-                    markers.forEach(function(marker) {
-                        L.marker([marker.lat, marker.lng]).addTo(map)
-                            .bindPopup(marker.popupText);
-                    });
-                    
-                    for (var i = 0; i < data.length; i++) {
-                        var coordinate = data[i];
-                        console.log(data[i])
-                        console.log(coordinate.latitude);
-                        console.log(coordinate.longitude);
-                        L.marker([coordinate.latitude, coordinate.longitude]).addTo(map)
+                        var newMarker = L.marker([item.latitude, item.longitude]).addTo(map)
                             .bindPopup('teste');
-                    }
-
+                        markers.push(newMarker);
+                    });
                 })
                 .catch(error => {
                     console.error('Erro:', error);
                 });
             }
 
-            
-
-        </script>
+            fetchAndDisplayCoordinates(); // Chama a função quando a página é carregada
+        });
+    </script>
 </body>
 </html>
