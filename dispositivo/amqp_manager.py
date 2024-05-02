@@ -2,6 +2,7 @@ import threading
 from django.conf import settings
 from datetime import datetime
 import json, pika
+import uuid
 from .models import Dispositivo, Coordenada
 
 DispositivoManager = Dispositivo.objects
@@ -32,6 +33,7 @@ class AMQPManager:
                     longitude = payload.get('longitude')
                     if DispositivoManager.filter(codigo=codigo_dispositivo).exists():
                         coordenadas = Coordenada(
+                            id=uuid.uuid4(),
                             latitude=latitude,
                             longitude=longitude,
                             data_hora_coleta=datetime.now(),
