@@ -22,7 +22,7 @@ class DispositivoById(generics.RetrieveAPIView):
 
 class LastCoordenada(APIView):
     def get(self, request, format=None):
-        last_coordenadas = Coordenada.objects.order_by('-id')[:5] 
+        last_coordenadas = Coordenada.objects.order_by('-data_hora_coleta')[:5] 
         coordenadas_list = []
         for coordenada in last_coordenadas:
             coordenadas_list.append({

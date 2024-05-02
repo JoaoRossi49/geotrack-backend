@@ -46,6 +46,14 @@
             }
 
             fetchAndDisplayCoordinates(); // Chama a função quando a página é carregada
+
+            let url = 'ws://' + window.location.host + '/ws/socket-server/'
+
+            const mapSocket = new WebSocket(url)
+
+            mapSocket.onmessage = function(e){
+                fetchAndDisplayCoordinates()
+            }
         });
     </script>
 </body>

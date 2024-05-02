@@ -28,12 +28,13 @@ class AMQPManager:
                 try:
                     payload = body.decode('utf-8')
                     payload = json.loads(payload)
-                    codigo_dispositivo = payload.get('codigo_dispositivo')
+                    dispositivo_id = payload.get('dispositivo_id')
                     latitude = payload.get('latitude')
-                    longitude = payload.get('longitude')
-                    if DispositivoManager.filter(codigo=codigo_dispositivo).exists():
+                    longitude = payload.get('longitude')                    
+                    if DispositivoManager.filter(id=dispositivo_id).exists():
                         coordenadas = Coordenada(
                             id=uuid.uuid4(),
+                            dispositivo = Dispositivo.objects.get(id=dispositivo_id),
                             latitude=latitude,
                             longitude=longitude,
                             data_hora_coleta=datetime.now(),
