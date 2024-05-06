@@ -8,13 +8,13 @@ start mosquitto.exe -p 8080 -v
 timeout /T 2 /NOBREAK
 
 REM Navegar para o diretório do projeto Django
-cd C:\git\api_dispositivo\geotrack
+cd C:\git\geotrack
 
 REM Ativar o ambiente virtual
 call venv\Scripts\activate
 
 REM Inicia receptor de coordenadas
-start python C:\git\api_dispositivo\geotrack\dispositivo\start_mqtt.py
+start cmd /k python C:\git\geotrack\dispositivo\start_mqtt.py
 timeout /T 2 /NOBREAK
 
 REM Iniciar o servidor Django
