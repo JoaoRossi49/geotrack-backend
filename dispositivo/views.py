@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Dispositivo, Coordenada
-from .serializers import DispositivoSerializer, CoordenadaSerializer, UserSerializer
+from .models import Dispositivo, Coordenada, Veiculo
+from .serializers import DispositivoSerializer, UserSerializer, VeiculoSerializer
 from rest_framework import generics
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
@@ -18,7 +18,15 @@ class DispositivoList(generics.ListCreateAPIView):
     
 class DispositivoById(generics.RetrieveAPIView):
     queryset = Dispositivo.objects.all()
-    serializer_class = DispositivoSerializer   
+    serializer_class = DispositivoSerializer 
+
+class VeiculoList(generics.ListCreateAPIView):
+    queryset = Veiculo.objects.all()
+    serializer_class = VeiculoSerializer
+    
+class VeiculoById(generics.RetrieveAPIView):
+    queryset = Veiculo.objects.all()
+    serializer_class = VeiculoSerializer 
 
 class LastCoordenada(APIView):
     def get(self, request, format=None):
