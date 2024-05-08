@@ -18,7 +18,7 @@ start cmd /k python C:\git\geotrack\dispositivo\start_mqtt.py
 timeout /T 2 /NOBREAK
 
 REM Iniciar o servidor Django
-start cmd /k python manage.py runserver --noreload
+start cmd /k python manage.py runserver 0.0.0.0:8000 --noreload
 
 REM Inicia disparos de coordenadas mock
 cd C:\git\pysquitto
