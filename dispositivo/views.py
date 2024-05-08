@@ -7,6 +7,7 @@ from .serializers import DispositivoSerializer, UserSerializer, VeiculoSerialize
 from rest_framework import generics
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -41,3 +42,14 @@ class LastCoordenada(APIView):
             return JsonResponse(coordenadas_list, safe=False)
         else:
             return JsonResponse({'error': 'Nenhuma coordenada encontrada'}, status=404)
+
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            return Response({'authenticated': True})
+        else:
+            return Response({'authenticated': False})
