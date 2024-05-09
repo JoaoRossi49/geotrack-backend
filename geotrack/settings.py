@@ -74,7 +74,7 @@ ROOT_URLCONF = 'geotrack.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['C:\\git\\geotrack-backend\\dispositivo\\templates', 'C:\\git\\geotrack-backend\\static\\admin.css\\base.css'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
