@@ -31,13 +31,19 @@ class VeiculoById(generics.RetrieveAPIView):
 
 class LastCoordenada(APIView):
     def get(self, request, format=None):
-        last_coordenadas = Coordenada.objects.order_by('-data_hora_coleta')[:5] 
+        veiculos = ['b66b373b-b5b2-44ee-9cec-4bd3ec8dd584', 'fb97a02c-008b-4c34-ace1-31fdc5625000']
+        last_n = 5
+
         coordenadas_list = []
-        for coordenada in last_coordenadas:
-            coordenadas_list.append({
-                'latitude': coordenada.latitude,
-                'longitude': coordenada.longitude,
-            })
+        for veiculo_id in veiculos:
+            last_coordenadas = Coordenada.objects.filter(veiculo_id=veiculo_id).order_by('-data_hora_coleta')[:last_n]
+            for coordenada in last_coordenadas:
+                coordenadas_list.append({
+                    'veiculo': coordenada.veiculo.modelo_veiculo,
+                    'latitude': coordenada.latitude,
+                    'longitude': coordenada.longitude,
+                })
+
         if coordenadas_list:
             return JsonResponse(coordenadas_list, safe=False)
         else:

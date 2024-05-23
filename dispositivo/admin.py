@@ -12,3 +12,8 @@ class CoordenadaAdmin(admin.ModelAdmin):
 @admin.register(Veiculo)
 class VeiculoAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'tipo_veiculo', 'modelo_veiculo', 'placa', 'data_inclusao')
+
+class Media:
+    css = {
+       'all': ('path/to/custom_admin.css',),
+    }
